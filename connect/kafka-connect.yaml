@@ -9,27 +9,6 @@ spec:
   version: 3.9.0
   replicas: 2
   bootstrapServers: kafka-cluster-kafka-bootstrap:9092
-  build:
-    output:
-      type: docker
-      image: your-registry/kafka-connect-custom:latest
-      # For K3s without an external registry, use type: imagestream or a local registry.
-      # Replace with your container registry, e.g.:
-      #   image: registry.example.com/kafka/kafka-connect-custom:latest
-      #   pushSecret: registry-credentials
-    plugins:
-      - name: sftp-sink-connector
-        artifacts:
-          - type: maven
-            repository: https://repo1.maven.org/maven2
-            group: com.github.jcustenborder.kafka.connect
-            artifact: kafka-connect-spooldir
-            version: 2.0.65
-      # Add additional connector plugins here, e.g.:
-      - name: source-debezium-sqlserver
-        artifacts:
-          - type: tgz
-            url: https://repo1.maven.org/maven2/io/debezium/debezium-connector-sqlserver/3.4.2.Final/debezium-connector-sqlserver-3.4.2.Final-plugin.tar.gz
   config:
     group.id: kafka-connect-cluster
     offset.storage.topic: kafka-connect-offsets
