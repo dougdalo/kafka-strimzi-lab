@@ -8,8 +8,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/your-org/gitops.git  # Replace with your repo URL
-    targetRevision: HEAD
+    repoURL: https://github.com/dougdalo/kafka-strimzi-lab
+    targetRevision: main
     path: connect
   destination:
     server: https://kubernetes.default.svc
