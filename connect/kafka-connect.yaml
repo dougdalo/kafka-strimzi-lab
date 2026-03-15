@@ -25,11 +25,11 @@ spec:
             group: com.github.jcustenborder.kafka.connect
             artifact: kafka-connect-spooldir
             version: 2.0.65
-       Add additional connector plugins here, e.g.:
-       - name: debezium-postgres
-         artifacts:
-           - type: tgz
-             url: https://repo1.maven.org/maven2/io/debezium/debezium-connector-sqlserver/3.4.2.Final/debezium-connector-sqlserver-3.4.2.Final-plugin.tar.gz
+      # Add additional connector plugins here, e.g.:
+      - name: source-debezium-sqlserver
+        artifacts:
+          - type: tgz
+            url: https://repo1.maven.org/maven2/io/debezium/debezium-connector-sqlserver/3.4.2.Final/debezium-connector-sqlserver-3.4.2.Final-plugin.tar.gz
   config:
     group.id: kafka-connect-cluster
     offset.storage.topic: kafka-connect-offsets
