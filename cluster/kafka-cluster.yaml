@@ -10,7 +10,6 @@ spec:
   kafka:
     version: 3.9.0
     metadataVersion: 3.9-IV0
-    replicas: 3
     listeners:
       - name: plain
         port: 9092
@@ -34,35 +33,6 @@ spec:
       default.replication.factor: 3
       min.insync.replicas: 2
       inter.broker.protocol.version: "3.9"
-    storage:
-      type: persistent-claim
-      size: 10Gi
-      class: local-path
-      deleteClaim: false
-    template:
-      pod:
-        affinity:
-          podAntiAffinity:
-            preferredDuringSchedulingIgnoredDuringExecution:
-              - weight: 100
-                podAffinityTerm:
-                  labelSelector:
-                    matchExpressions:
-                      - key: strimzi.io/name
-                        operator: In
-                        values:
-                          - kafka-cluster-kafka
-                  topologyKey: kubernetes.io/hostname
-    resources:
-      requests:
-        memory: 2Gi
-        cpu: 500m
-      limits:
-        memory: 4Gi
-        cpu: 2000m
-    jvmOptions:
-      -Xms: 1g
-      -Xmx: 2g
   entityOperator:
     topicOperator:
       resources:
