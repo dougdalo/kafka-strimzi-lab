@@ -5,9 +5,9 @@ metadata:
   namespace: kafka
 spec:
   scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: kafka-connect-connect
+    apiVersion: kafka.strimzi.io/v1beta2
+    kind: KafkaConnect
+    name: kafka-connect
   minReplicaCount: 1
   maxReplicaCount: 5
   triggers:
