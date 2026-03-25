@@ -30,13 +30,26 @@ This repository implements a **Kafka GitOps infrastructure** for a 3-node K3s cl
   - Internal: `[cluster-name]-kafka-bootstrap.kafka.svc:9092`
   - External: NodePort (32100) or Traefik Ingress for ArgoCD UI
 
+## Strimzi 0.45.0 KRaft + Node Pools
+
+- **KafkaNodePool CR required:** `strimzi.io/node-pools: enabled` annotation on the `Kafka` CR means `replicas`, `storage`, `resources`, `jvmOptions`, and `template` MUST be in a `KafkaNodePool` CR — those fields are ignored on the `Kafka` CR itself
+- **KRaft combined roles:** `KafkaNodePool.spec.roles: [broker, controller]` — all 3 nodes act as both broker and controller
+- **Storage class field:** Use `class: local-path` (not `storageClass`) in `PersistentClaimStorage` — the CRD schema uses `class`
+- **StrimziPodSet:** Strimzi 0.45.0 uses `StrimziPodSet` (not `Deployment`) to manage Kafka and KafkaConnect pods — no `Deployment` object is created for Connect workers
+
 ## Autoscaling (KEDA + Strimzi)
 
-- **Scaling Target:** KEDA must target the Deployment automatically created by Strimzi, named `[KafkaConnect-name]-connect`
+- **Scaling Target:** Target the `KafkaConnect` CR directly via its `/scale` subresource — NOT a Deployment (Strimzi 0.45.0 uses StrimziPodSet, no Deployment exists)
+  ```yaml
+  scaleTargetRef:
+    apiVersion: kafka.strimzi.io/v1beta2
+    kind: KafkaConnect
+    name: kafka-connect
+  ```
 - **ScaledObject Logic:**
   - Use the `kafka` trigger type
   - Define `bootstrapServers` and `consumerGroup` to monitor
-  - Set `lagThreshold` (e.g., `"100"`) to trigger scaling
+  - Set `lagThreshold` (e.g., `"50"`) to trigger scaling
 - **Resource Constraints:** `KafkaConnect` MUST have CPU/Memory requests defined for predictable HPA behavior
 
 ## ArgoCD GitOps Pattern
