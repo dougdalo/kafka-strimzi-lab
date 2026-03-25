@@ -17,6 +17,9 @@ spec:
     offset.storage.replication.factor: 3
     config.storage.replication.factor: 3
     status.storage.replication.factor: 3
+    offset.storage.min.insync.replicas: 1
+    config.storage.min.insync.replicas: 1
+    status.storage.min.insync.replicas: 1
     config.providers: file
     config.providers.file.class: org.apache.kafka.common.config.provider.FileConfigProvider
   template:
