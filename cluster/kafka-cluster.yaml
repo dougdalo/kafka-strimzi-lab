@@ -37,7 +37,7 @@ spec:
     storage:
       type: persistent-claim
       size: 10Gi
-      storageClass: local-path
+      class: local-path
       deleteClaim: false
     template:
       pod:
