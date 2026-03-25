@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/dougdalo/kafka-strimzi-lab
     targetRevision: main
-    path: install
+    path: install/keda
   destination:
     server: https://kubernetes.default.svc
     namespace: keda
