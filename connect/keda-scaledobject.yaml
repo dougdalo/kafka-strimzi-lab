@@ -8,7 +8,7 @@ spec:
     apiVersion: kafka.strimzi.io/v1beta2
     kind: KafkaConnect
     name: kafka-connect
-  minReplicaCount: 1
+  minReplicaCount: 3
   maxReplicaCount: 5
   triggers:
     - type: kafka
